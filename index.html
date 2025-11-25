@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Burlingame Family</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 
+        --- SWISS DESIGN SYSTEM ---
+        */
+        :root {
+            --color-bg: #ffffff;
+            --color-text: #111111;
+            --color-accent: #FF0000; /* Swiss Red */
+            --color-border: #111111;
+            
+            --font-main: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            
+            --grid-gutter: 0; /* Tight grid with borders */
+            --container-max: 1600px;
+            --border-width: 1px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-main);
+            line-height: 1.4;
+            -webkit-font-smoothing: antialiased;
+            /* The quintessential bold top bar */
+            border-top: 20px solid var(--color-accent); 
+        }
+
+        /* UTILITIES */
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            border-left: var(--border-width) solid var(--color-border);
+            border-right: var(--border-width) solid var(--color-border);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            filter: grayscale(100%); /* Artistic choice: B&W photos until hover */
+            transition: filter 0.3s ease;
+        }
+
+        img:hover {
+            filter: grayscale(0%);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3, h4 {
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            line-height: 0.9;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 9rem);
+            margin: 0;
+        }
+
+        p {
+            font-size: 1.125rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .meta {
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* HEADER */
+        header {
+            border-bottom: var(--border-width) solid var(--color-border);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 6rem 2rem;
+            border-bottom: var(--border-width) solid var(--color-border);
+            min-height: 50vh;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .family-list {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+
+        /* DEFINITION SECTION */
+        .definition {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-bottom: var(--border-width) solid var(--color-border);
+        }
+
+        .def-left {
+            padding: 4rem 2rem;
+            border-right: var(--border-width) solid var(--color-border);
+            background: var(--color-accent);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .def-right {
+            padding: 4rem 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .def-text {
+            font-size: clamp(1.25rem, 2vw, 2rem);
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        /* GALLERY / TIMELINE GRID */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Strict 3 column grid */
+        }
+
+        .gallery-item {
+            border-right: var(--border-width) solid var(--color-border);
+            border-bottom: var(--border-width) solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        /* Remove border from 3rd item in row to fit container */
+        .gallery-item:nth-child(3n) {
+            border-right: none;
+        }
+
+        .gallery-image-container {
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            border-bottom: var(--border-width) solid var(--color-border);
+        }
+
+        .gallery-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .gallery-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-date {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            min-height: 200px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gallery-item:nth-child(2n) {
+                border-right: none;
+            }
+            .gallery-item:nth-child(3n) {
+                border-right: var(--border-width) solid var(--color-border);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .definition {
+                grid-template-columns: 1fr;
+            }
+            .def-left {
+                border-right: none;
+                border-bottom: var(--border-width) solid var(--color-border);
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-item {
+                border-right: none;
+            }
+            h1 {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <div class="logo">THEBURL.COM</div>
+            <div class="meta">EST. 2025</div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div>
+                <span class="meta">THE FAMILY ARCHIVE</span>
+                <h1>The<br>Burlingame<br>Family.</h1>
+                <div class="family-list">
+                    Greg / Kelly / GJ / Ethan
+                </div>
+            </div>
+        </section>
+
+        <!-- DEFINITION SECTION -->
+        <section class="definition">
+            <div class="def-left">
+                <h2 style="font-size: 4rem;">What is<br>a Burl?</h2>
+                <div style="margin-top: 2rem; font-family: monospace;">NOUN / ETYMOLOGY UNKNOWN</div>
+            </div>
+            <div class="def-right">
+                <p class="def-text">
+                    A burl is a dense, rounded growth on a tree formed when the tree responds to stress—such as injury, infection, or environmental damage—by producing irregular grain patterns. Though abnormal, burls are prized for their unique beauty and strength in woodworking.
+                </p>
+            </div>
+        </section>
+
+        <!-- GALLERY GRID -->
+        <section class="gallery-grid">
+            
+            <!-- Item 1: Burl Wood -->
+            <div class="gallery-item">
+                <div class="gallery-image-container">
+                    <!-- Image link extracted from source -->
+                    <img src="https://lh3.googleusercontent.com/sitesv/AAzXCkeulC4dv0PR1bKIT9Gc1zjbpz7NHKnF23T2j_2hZ-3CvbnRpiHUJYgX438Mcifx_p0iWC2MV8WbAvQAs7gCUPXk4ZxmCJmc4yzdfRfrm0uL0v8gLbYHs0wjPaevYnWORic47APt1eVElE7Czc4HobKpzx4xb6FCwnCGUOWagkU8b-8DdQ3hCqC7DgfyxiRUtkI60psqqA93eWn-UM81YklENRTmldLGdUrxQVg=w1280" alt="Burl on Hellcat Trail">
+                </div>
+                <div class="gallery-content">
+                    <div>
+                        <span class="meta">HELLCAT TRAIL, NEWBURYPORT, MA</span>
+                        <h3 class="gallery-title">Nature Study: Burl</h3>
+                        <p class="gallery-date">July 13, 2025</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2: Papa Jim -->
+            <div class="gallery-item">
+                <div class="gallery-image-container">
+                    <img src="https://lh3.googleusercontent.com/sitesv/AAzXCkefdh8EKL6TrllmwMNyaHbx2Ea7Ysdf1mebVrvWgpvGItwlRc1gmU1MJiUbcZKK-bv2345qjrFfo9a2GGtau_uQG-4eNAbG0aZ7BzCaG0YmUVaNJvmDcFe1NNytElNVYatikNunUw5P7pYlzB0NaWoDM01vYc99zEp5xdkUeQUqoL6V6jagyZLnA_Ah3tXWaDyOf28_Qch1DiobqGQNofv12aesl9_f0X5Z1WI=w1280" alt="Papa Jim 80th">
+                </div>
+                <div class="gallery-content">
+                    <div>
+                        <span class="meta">WOBURN, MA</span>
+                        <h3 class="gallery-title">Papa Jim's 80th Birthday</h3>
+                        <p class="gallery-date">August 2025</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3: Easter 2025 -->
+            <div class="gallery-item">
+                <div class="gallery-image-container">
+                    <img src="https://lh3.googleusercontent.com/sitesv/AAzXCkfhEyXz7ysrZJeOthgPN8t4Ozm_3meFnbRS1plh4ddsXLcVlx9TrekbSZnVGLDdecaDwGa2NC2J_7PmnhnvqGrYC_Qc2UYlpSubOuDUcZAXp4I85akbRKewysZ0Am1A4msCoVdFAXj3AkpP74eHSNSxnFg5SyLuWIRY2FRT6sPmaZGrPWZfbPGh5ETD0tWZD7Ii_o2mMlWYCa2jtChUl3H4Ugk1TgSlk5UP-4g=w1280" alt="Easter 2025">
+                </div>
+                <div class="gallery-content">
+                    <div>
+                        <span class="meta">DOVER, NH</span>
+                        <h3 class="gallery-title">Easter Celebration</h3>
+                        <p class="gallery-date">2025</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4: Easter 2024 -->
+            <div class="gallery-item">
+                <div class="gallery-image-container">
+                    <img src="https://lh3.googleusercontent.com/sitesv/AAzXCkdEQ1gI2S0_skqeeYRfZDUDbZJn7eNZjtsk3Jnv3QCAnHxZDc1AbKNCM80omRjXS5twSlLmSdZCEB1kHdavZOsmScr54_ATp15yPOB0OaIhWlbMXZjj9C1HmdLIwfxQ5_j0mXwTkYnd9_FWpx1ZLUhM8JUl2IQzpHJFFvwp76nJjDvVvlKo_uRtw2k8LOzMwDzwv333iVnwblbVCi5QcI7w2-DMbK-vqR_v6fI=w1280" alt="Easter 2024">
+                </div>
+                <div class="gallery-content">
+                    <div>
+                        <span class="meta">DOVER, NH</span>
+                        <h3 class="gallery-title">Easter Celebration</h3>
+                        <p class="gallery-date">2024</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 5: Easter 2023 -->
+            <div class="gallery-item">
+                <div class="gallery-image-container">
+                    <img src="https://lh3.googleusercontent.com/sitesv/AAzXCkfEuei7DugYSpQ0Cd257KuIEtDV0OcTb6l8uvr2SvHLAXjIgIaI8bpNVH0RjSf5lJ2PpcJrSKokHewothYxKcY34wtoAjqIWbSIMPNXXkQ61teM7aVZeRQjAt38RB8DWMw492qKZrCTDBzTUkK3cADMt1eSTUy6YnzaTwnE5ee5Cmwe4OcsgN3qzRcE_U4O2ZkwnomfffHt5ifoX5KAXcBwlJoQ0DcGsc5m=w1280" alt="Easter 2023">
+                </div>
+                <div class="gallery-content">
+                    <div>
+                        <span class="meta">DOVER, NH</span>
+                        <h3 class="gallery-title">Easter Celebration</h3>
+                        <p class="gallery-date">2023</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 6: Contact/End Card -->
+            <div class="gallery-item" style="background-color: var(--color-text); color: var(--color-bg);">
+                <div class="gallery-content" style="justify-content: center; align-items: center; height: 100%;">
+                    <div style="text-align: center;">
+                        <h3 class="gallery-title" style="font-size: 2rem;">Thank<br>You.</h3>
+                        <p style="margin-top: 1rem; color: #999;">For Visiting</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div>
+                <h4 style="margin-bottom: 1rem;">The Burlingame Family</h4>
+                <ul style="font-size: 0.9rem;">
+                    <li>Greg & Kelly</li>
+                    <li>GJ & Ethan</li>
+                </ul>
+            </div>
+            <div>
+                <span class="meta">© 2025</span>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
