@@ -226,55 +226,61 @@
             justify-content: space-between;
             align-items: flex-end;
             min-height: 200px;
+            /* Optional: adds a nice separation line */
+            border-top: var(--border-width) solid var(--color-border); 
         }
 
         .footer-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
             font-size: 0.9rem;
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr)); /* Force two columns on desktop */
-            gap: 0.65rem 1.25rem;
+            /* Keeps your 2-column layout (Greg/Kelly left, GJ/Ethan right) */
+            grid-template-columns: repeat(2, max-content); 
+            gap: 0.75rem 2rem; /* Vertical gap | Horizontal gap */
         }
 
         .footer-person {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        @media (max-width: 640px) {
-            .footer-list {
-                grid-template-columns: 1fr; /* Stack on small screens */
-            }
+            align-items: center; /* Crucial: centers the icon with the text vertically */
+            gap: 0.5rem;         /* Distance between Name and Icon */
         }
 
         .footer-name {
             font-weight: 700;
             letter-spacing: -0.01em;
+            color: var(--color-text);
         }
 
+        /* CLEANER ICON STYLING */
         .linkedin-link {
-            display: inline-flex;
+            display: flex;      /* Ensures SVG creates no extra whitespace */
             align-items: center;
             justify-content: center;
-            width: 1.5rem;
-            height: 1.5rem;
-            border: var(--border-width) solid var(--color-border);
-            border-radius: 4px;
-            background: #0a66c2;
-            color: white;
-            transition: transform 0.15s ease, filter 0.15s ease;
-        }
-
-        .linkedin-link:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.05);
+            background: transparent;
+            border: none;
+            color: #999999;    /* Default to subtle grey */
+            transition: color 0.2s ease, transform 0.2s ease;
         }
 
         .linkedin-link svg {
-            width: 14px;
-            height: 14px;
-            fill: currentColor; /* Ensure icon uses the link color (white on blue) */
+            width: 18px;       
+            height: 18px;
+            fill: currentColor;
         }
+
+        /* HOVER EFFECTS */
+        .linkedin-link:hover {
+            color: var(--color-accent); /* Turns Red on hover */
+            transform: translateX(2px); /* subtle movement right */
+            filter: none;
+        }
+
+        .footer-person:hover .footer-name {
+            text-decoration: underline; /* Adds the underline to the name on hover too */
+        }
+
 
         /* RESPONSIVE */
         @media (max-width: 1024px) {
@@ -305,6 +311,17 @@
             }
             h1 {
                 font-size: 3.5rem;
+            }
+        }
+        @media (max-width: 640px) {
+            footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2rem;
+            }
+    
+            .footer-list {
+                grid-template-columns: 1fr; /* Stack vertically on phones */
             }
         }
     </style>
@@ -430,44 +447,48 @@
 
         <!-- FOOTER -->
         <footer>
+            <!-- Left Side: Names -->
             <div>
-                <h4 style="margin-bottom: 1rem;">The Burlingame Family</h4>
+                <h4 style="margin-bottom: 1.5rem;">The Burlingame Family</h4>
                 <ul class="footer-list">
+                    
+                    <!-- Greg -->
                     <li class="footer-person">
                         <span class="footer-name">Greg</span>
-                        <a class="linkedin-link" href="https://www.linkedin.com/in/gregburlingame/" target="_blank" rel="noopener noreferrer" aria-label="Greg Burlingame on LinkedIn">
-                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                                <path d="M20.45 3H3.55A.56.56 0 0 0 3 3.57v16.86c0 .31.25.57.55.57h16.9c.3 0 .55-.26.55-.57V3.57A.56.56 0 0 0 20.45 3ZM8.1 18.43H5.6V9.9h2.5v8.53ZM6.85 8.79c-.8 0-1.45-.66-1.45-1.47 0-.81.65-1.47 1.45-1.47s1.45.66 1.45 1.47c0 .81-.65 1.47-1.45 1.47ZM18.4 18.43h-2.48v-4.15c0-.99-.02-2.25-1.37-2.25-1.38 0-1.6 1.07-1.6 2.18v4.22H10.5V9.9h2.38v1.16h.03c.33-.62 1.13-1.27 2.33-1.27 2.5 0 2.96 1.65 2.96 3.8v4.84Z"/>
-                            </svg>
+                        <a class="linkedin-link" href="https://www.linkedin.com/in/gregburlingame/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                         </a>
                     </li>
+
+                    <!-- Kelly -->
                     <li class="footer-person">
                         <span class="footer-name">Kelly</span>
-                        <a class="linkedin-link" href="https://www.linkedin.com/in/kelly-burlingame-15512a69/" target="_blank" rel="noopener noreferrer" aria-label="Kelly Burlingame on LinkedIn">
-                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                                <path d="M20.45 3H3.55A.56.56 0 0 0 3 3.57v16.86c0 .31.25.57.55.57h16.9c.3 0 .55-.26.55-.57V3.57A.56.56 0 0 0 20.45 3ZM8.1 18.43H5.6V9.9h2.5v8.53ZM6.85 8.79c-.8 0-1.45-.66-1.45-1.47 0-.81.65-1.47 1.45-1.47s1.45.66 1.45 1.47c0 .81-.65 1.47-1.45 1.47ZM18.4 18.43h-2.48v-4.15c0-.99-.02-2.25-1.37-2.25-1.38 0-1.6 1.07-1.6 2.18v4.22H10.5V9.9h2.38v1.16h.03c.33-.62 1.13-1.27 2.33-1.27 2.5 0 2.96 1.65 2.96 3.8v4.84Z"/>
-                            </svg>
+                        <a class="linkedin-link" href="https://www.linkedin.com/in/kelly-burlingame-15512a69/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                         </a>
                     </li>
+
+                    <!-- GJ -->
                     <li class="footer-person">
                         <span class="footer-name">GJ</span>
-                        <a class="linkedin-link" href="https://www.linkedin.com/in/gj-burlingame/" target="_blank" rel="noopener noreferrer" aria-label="GJ Burlingame on LinkedIn">
-                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                                <path d="M20.45 3H3.55A.56.56 0 0 0 3 3.57v16.86c0 .31.25.57.55.57h16.9c.3 0 .55-.26.55-.57V3.57A.56.56 0 0 0 20.45 3ZM8.1 18.43H5.6V9.9h2.5v8.53ZM6.85 8.79c-.8 0-1.45-.66-1.45-1.47 0-.81.65-1.47 1.45-1.47s1.45.66 1.45 1.47c0 .81-.65 1.47-1.45 1.47ZM18.4 18.43h-2.48v-4.15c0-.99-.02-2.25-1.37-2.25-1.38 0-1.6 1.07-1.6 2.18v4.22H10.5V9.9h2.38v1.16h.03c.33-.62 1.13-1.27 2.33-1.27 2.5 0 2.96 1.65 2.96 3.8v4.84Z"/>
-                            </svg>
+                        <a class="linkedin-link" href="https://www.linkedin.com/in/gj-burlingame/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                         </a>
                     </li>
+
+                    <!-- Ethan -->
                     <li class="footer-person">
                         <span class="footer-name">Ethan</span>
-                        <a class="linkedin-link" href="https://www.linkedin.com/in/ethan-burlingame/" target="_blank" rel="noopener noreferrer" aria-label="Ethan Burlingame on LinkedIn">
-                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                                <path d="M20.45 3H3.55A.56.56 0 0 0 3 3.57v16.86c0 .31.25.57.55.57h16.9c.3 0 .55-.26.55-.57V3.57A.56.56 0 0 0 20.45 3ZM8.1 18.43H5.6V9.9h2.5v8.53ZM6.85 8.79c-.8 0-1.45-.66-1.45-1.47 0-.81.65-1.47 1.45-1.47s1.45.66 1.45 1.47c0 .81-.65 1.47-1.45 1.47ZM18.4 18.43h-2.48v-4.15c0-.99-.02-2.25-1.37-2.25-1.38 0-1.6 1.07-1.6 2.18v4.22H10.5V9.9h2.38v1.16h.03c.33-.62 1.13-1.27 2.33-1.27 2.5 0 2.96 1.65 2.96 3.8v4.84Z"/>
-                            </svg>
+                        <a class="linkedin-link" href="https://www.linkedin.com/in/ethan-burlingame/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                         </a>
                     </li>
+
                 </ul>
             </div>
-            <div>
+
+            <!-- Right Side: Copyright -->
+            <div style="text-align: right;">
                 <span class="meta">© 2025</span>
             </div>
         </footer>
