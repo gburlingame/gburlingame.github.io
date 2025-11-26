@@ -139,7 +139,7 @@
             font-weight: 300;
         }
 
-        /* DEFINITION SECTION */
+        /* DEFINITION SECTIONS */
         .definition {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -158,14 +158,41 @@
 
         .def-right {
             padding: 4rem 2rem;
+            /* Changed from flex/center to block so we can stack text/image/link */
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .def-text {
             font-size: clamp(1.25rem, 2vw, 2rem);
             font-weight: 300;
             line-height: 1.4;
+            margin-bottom: 2rem;
+        }
+        /* ALTERNATE DEFINITION STYLE (White Background, Red Text) */
+        .def-left.alt {
+            background: var(--color-bg); /* White */
+            color: var(--color-text);    /* Black text base */
+        }
+
+        .def-left.alt h2 {
+            color: var(--color-accent);  /* Red Headline */
+}
+        /* Specific link style for the external link */
+        .external-link {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 1rem;
+            display: inline-block;
+            margin-top: 1rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .external-link:hover {
+            border-bottom: 2px solid var(--color-accent);
+            color: var(--color-accent);
         }
 
         /* GALLERY / TIMELINE GRID */
@@ -226,7 +253,6 @@
             justify-content: space-between;
             align-items: flex-end;
             min-height: 200px;
-            /* Optional: adds a nice separation line */
             border-top: var(--border-width) solid var(--color-border); 
         }
 
@@ -236,15 +262,14 @@
             padding: 0;
             font-size: 0.9rem;
             display: grid;
-            /* Keeps your 2-column layout (Greg/Kelly left, GJ/Ethan right) */
             grid-template-columns: repeat(2, max-content); 
-            gap: 0.75rem 2rem; /* Vertical gap | Horizontal gap */
+            gap: 0.75rem 2rem; 
         }
 
         .footer-person {
             display: flex;
-            align-items: center; /* Crucial: centers the icon with the text vertically */
-            gap: 0.5rem;         /* Distance between Name and Icon */
+            align-items: center; 
+            gap: 0.5rem;        
         }
 
         .footer-name {
@@ -253,14 +278,13 @@
             color: var(--color-text);
         }
 
-        /* CLEANER ICON STYLING */
         .linkedin-link {
-            display: flex;      /* Ensures SVG creates no extra whitespace */
+            display: flex;      
             align-items: center;
             justify-content: center;
             background: transparent;
             border: none;
-            color: #999999;    /* Default to subtle grey */
+            color: #999999;    
             transition: color 0.2s ease, transform 0.2s ease;
         }
 
@@ -270,15 +294,14 @@
             fill: currentColor;
         }
 
-        /* HOVER EFFECTS */
         .linkedin-link:hover {
-            color: var(--color-accent); /* Turns Red on hover */
-            transform: translateX(2px); /* subtle movement right */
+            color: var(--color-accent); 
+            transform: translateX(2px); 
             filter: none;
         }
 
         .footer-person:hover .footer-name {
-            text-decoration: underline; /* Adds the underline to the name on hover too */
+            text-decoration: underline; 
         }
 
 
@@ -321,7 +344,7 @@
             }
     
             .footer-list {
-                grid-template-columns: 1fr; /* Stack vertically on phones */
+                grid-template-columns: 1fr; 
             }
         }
     </style>
@@ -346,7 +369,7 @@
             </div>
         </section>
 
-        <!-- DEFINITION SECTION -->
+        <!-- DEFINITION 1: WHAT IS A BURL -->
         <section class="definition">
             <div class="def-left">
                 <h2 style="font-size: 4rem;">What is<br>a Burl?</h2>
@@ -359,13 +382,35 @@
             </div>
         </section>
 
+        <!-- DEFINITION 2: THE OTHER BURL (LEXINGTON) -->
+        <!-- Added 'alt' class to def-left below -->
+        <section class="definition">
+            <div class="def-left alt">
+                <h2 style="font-size: 4rem;">The Other<br>Burl.</h2>
+                <div style="margin-top: 2rem; font-family: monospace; color: var(--color-text);">LEXINGTON, KY / DISTILLERY DISTRICT</div>
+            </div>
+            <div class="def-right">
+                <p class="def-text">
+                    We are sometimes mistaken for THE BURL in Lexington, KY—a restored 1926 train depot featuring live music, arcade games, and a brew pub. We have no affiliation, but we admire their style. It looks like a super cool place to visit.
+                </p>
+                
+                <!-- STREET VIEW IMAGE -->
+                <div style="margin-bottom: 1.5rem; border: 1px solid black; aspect-ratio: 16/9; overflow: hidden;">
+                    <img src="lexington-burl.png" alt="Street View of The Burl in Lexington KY" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+
+                <a href="https://www.theburlky.com" target="_blank" rel="noopener noreferrer" class="external-link">
+                    Visit TheBurlKY.com <span style="color: var(--color-accent);">-></span>
+                </a>
+            </div>
+        </section>
+
         <!-- GALLERY GRID -->
         <section class="gallery-grid">
             
             <!-- Item 1: Burl Wood -->
             <div class="gallery-item">
                 <div class="gallery-image-container">
-                    <!-- Image link extracted from source -->
                     <img src="burlphoto.png" alt="Burl on Hellcat Trail">
                 </div>
                 <div class="gallery-content">
