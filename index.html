@@ -71,6 +71,11 @@
             filter: grayscale(0%);
         }
 
+        img.colorized,
+        img.colorized:hover {
+            filter: none;
+        }
+
         a {
             text-decoration: none;
             color: inherit;
@@ -136,6 +141,39 @@
             margin-top: 2rem;
             font-size: 1.5rem;
             font-weight: 300;
+        }
+
+        .hero-burl-images {
+            margin: 2.5rem 0;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .hero-burl-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-burl-image {
+            border: 1px solid black;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+
+        .hero-burl-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-burl-caption {
+            margin-top: 0.75rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--color-text);
         }
 
         /* DEFINITION SECTIONS */
@@ -325,6 +363,9 @@
                 border-right: none;
                 border-bottom: var(--border-width) solid var(--color-border);
             }
+            .hero-burl-images {
+                grid-template-columns: 1fr;
+            }
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
@@ -378,28 +419,26 @@
                 <p class="def-text" style="margin-top: 2.5rem; max-width: 100%;">
                     We grabbed the short domain theburl.com back in 2010 as a nod to our family name, Burlingame. Not long after, we learned that a burl is a dense, resilient growth that forms on a tree when it’s under stress. From the outside it can look rough or scarred, but inside it often holds remarkable beauty.
                 </p>
-                <p class="def-text" style="max-width: 100%;">
-                    That idea stuck with us. What matters most isn’t always what shows on the surface, but what’s shaped within through time and experience. This site is our small, family version of that story—a place rooted in resilience, shared history, and a name we’ve grown to love.
-                </p>
-                <p class="def-text" style="max-width: 100%;">
-                    Years later, we discovered that a music venue in Kentucky opened with the same name: THE BURL. We don’t know what inspired their choice, but we like to think the meaning resonates in a similar way. You can find more about their venue below.
-                </p>
-            </div>
-        </section>
-
-        <!-- DEFINITION 1: WHAT IS A BURL -->
-        <section class="definition">
-            <div class="def-left">
-                <h2 style="font-size: 4rem;">What is<br>a Burl?</h2>
-                <div style="margin-top: 2rem; font-family: monospace;">NOUN / ETYMOLOGY UNKNOWN</div>
-            </div>
-            <div class="def-right">
-                <p class="def-text">
-                    A burl is a dense, rounded growth that forms when a tree responds to stress—injury, infection, or harsh weather. Inside, the grain twists and tightens, creating patterns that are both resilient and striking. It’s a quiet reminder that pressure doesn’t just leave marks; sometimes, it creates beauty.
-                </p>
-                <div style="margin-top: 1.5rem; border: 1px solid black; aspect-ratio: 16/9; overflow: hidden;">
-                    <img src="burlwoodguitar.jpg" alt="Guitar with burl wood figuring" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="hero-burl-images">
+                    <div class="hero-burl-item">
+                        <div class="hero-burl-image">
+                            <img src="burlphoto.png" alt="Burl on a tree along Hellcat Trail" class="colorized">
+                        </div>
+                        <div class="hero-burl-caption">A burl seen on the Hellcat Trail, Newburyport, MA&nbsp;&nbsp;July 2025</div>
+                    </div>
+                    <div class="hero-burl-item">
+                        <div class="hero-burl-image">
+                            <img src="burlwoodguitar.jpg" alt="Guitar with burl wood figuring" class="colorized">
+                        </div>
+                        <div class="hero-burl-caption">A guitar made from the burlwood of a redwood tree</div>
+                    </div>
                 </div>
+                <p class="def-text" style="max-width: 100%;">
+                    That idea stayed with us. What may look rough or imperfect at first glance can, with care and intention, reveal unexpected beauty. This site is our small, family version of that story—a place rooted in resilience, shared history, and a name we’ve grown to love.
+                </p>
+                <p class="def-text" style="max-width: 100%;">
+                    Years later, we discovered that a music venue in Kentucky had opened with the name: THE BURL. We don’t know what inspired their choice, but we like to think the meaning resonates in a similar way. You can find more about their venue below.
+                </p>
             </div>
         </section>
 
@@ -428,20 +467,6 @@
 
         <!-- GALLERY GRID -->
         <section class="gallery-grid">
-            
-            <!-- Item: Burl Wood -->
-            <div class="gallery-item">
-                <div class="gallery-image-container">
-                    <img src="burlphoto.png" alt="Burl on Hellcat Trail">
-                </div>
-                <div class="gallery-content">
-                    <div>
-                        <span class="meta">HELLCAT TRAIL, NEWBURYPORT, MA</span>
-                        <h3 class="gallery-title">Nature Study: Burl</h3>
-                        <p class="gallery-date">July 2025</p>
-                    </div>
-                </div>
-            </div>
             
             <!-- Item: GJ 2022 -->
             <div class="gallery-item">
