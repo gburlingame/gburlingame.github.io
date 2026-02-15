@@ -14,6 +14,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Burlingame Family</title>
+    <meta name="description" content="The family archive of the Burlingame family at theburl.com — rooted in resilience, shared history, and a name we've grown to love.">
+    <meta property="og:title" content="The Burlingame Family">
+    <meta property="og:description" content="The family archive of the Burlingame family at theburl.com — rooted in resilience, shared history, and a name we've grown to love.">
+    <meta property="og:image" content="https://www.theburl.com/burlphoto.png">
+    <meta property="og:url" content="https://www.theburl.com/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Burlingame Family">
+    <meta name="twitter:description" content="The family archive of the Burlingame family at theburl.com">
+    <meta name="twitter:image" content="https://www.theburl.com/burlphoto.png">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FF0000'/><text x='50' y='76' font-family='Inter,Helvetica,sans-serif' font-size='72' font-weight='800' fill='white' text-anchor='middle'>B</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
@@ -63,11 +74,12 @@
             max-width: 100%;
             height: auto;
             display: block;
-            filter: grayscale(100%); /* Artistic choice: B&W photos until hover */
-            transition: filter 0.3s ease;
+            filter: grayscale(100%);
+            transition: filter 3.6s ease;
         }
 
-        img:hover {
+        img:hover,
+        img.in-view {
             filter: grayscale(0%);
         }
 
@@ -387,6 +399,42 @@
                 grid-template-columns: 1fr; 
             }
         }
+        /* BURL TEXT ANIMATION */
+        @keyframes burlPulse {
+            0%, 100% { text-shadow: none; }
+            50% { text-shadow: 0 0 40px rgba(255, 0, 0, 0.5), 0 0 80px rgba(255, 0, 0, 0.3), 0 0 120px rgba(255, 0, 0, 0.1); }
+        }
+
+        .burl-text {
+            display: inline-block;
+            animation: burlPulse 3s ease-in-out infinite;
+        }
+
+        /* PAGE ENTRANCE ANIMATION */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero > div > * {
+            opacity: 0;
+            animation: fadeUp 0.7s ease-out forwards;
+        }
+        .hero > div > *:nth-child(1) { animation-delay: 0s; }
+        .hero > div > *:nth-child(2) { animation-delay: 0.15s; }
+        .hero > div > *:nth-child(3) { animation-delay: 0.3s; }
+        .hero > div > *:nth-child(n+4) { animation-delay: 0.5s; }
+
+        /* REDUCED MOTION ACCESSIBILITY */
+        @media (prefers-reduced-motion: reduce) {
+            .hero > div > * {
+                opacity: 1;
+                animation: none;
+            }
+            .burl-text {
+                animation: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -406,10 +454,10 @@
                 
                 <h1>
                     <!-- "The" is Red -->
-                    <span style="color: var(--color-accent);">The</span><br>
+                    <span class="burl-text" style="color: var(--color-accent);">The</span><br>
                     
                     <!-- "Burl" is Red, "ingame" is default Black -->
-                    <span style="color: var(--color-accent);">Burl</span>ingame<br>
+                    <span class="burl-text" style="color: var(--color-accent);">Burl</span>ingame<br>
                     
                     Family & FRIENDS.
                 </h1>
@@ -422,13 +470,13 @@
                 <div class="hero-burl-images">
                     <div class="hero-burl-item">
                         <div class="hero-burl-image">
-                            <img src="burlphoto.png" alt="Burl on a tree along Hellcat Trail" class="colorized">
+                            <img src="burlphoto.png" alt="Burl on a tree along Hellcat Trail">
                         </div>
                         <div class="hero-burl-caption">A burl seen on the Hellcat Trail, Newburyport, MA&nbsp;&nbsp;July 2025</div>
                     </div>
                     <div class="hero-burl-item">
                         <div class="hero-burl-image">
-                            <img src="burlwoodguitar.jpg" alt="Guitar with burl wood figuring" class="colorized">
+                            <img src="burlwoodguitar.jpg" alt="Guitar with burl wood figuring">
                         </div>
                         <div class="hero-burl-caption">A guitar made from the burlwood of a redwood tree</div>
                     </div>
@@ -639,10 +687,30 @@
 
             <!-- Right Side: Copyright -->
             <div style="text-align: right;">
-                <span class="meta">© 2025</span>
+                <span class="meta" id="copyright">© 2025</span>
             </div>
         </footer>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Scroll-triggered grayscale reveal
+            var images = document.querySelectorAll('img:not(.colorized)');
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    } else {
+                        entry.target.classList.remove('in-view');
+                    }
+                });
+            }, { threshold: 0.3 });
+            images.forEach(function(img) { observer.observe(img); });
+
+            // Dynamic copyright year
+            var el = document.getElementById('copyright');
+            if (el) el.textContent = '© 2010–' + new Date().getFullYear();
+        });
+    </script>
 </body>
 </html>
