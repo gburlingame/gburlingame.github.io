@@ -259,16 +259,17 @@
                 max-width: 380px;
             }
             .hero-burl-item:nth-child(1) {
-                transform: rotate(-2deg) translateX(0);
+                transform: rotate(-2deg);
             }
             .hero-burl-item:nth-child(2) {
-                transform: rotate(1.5deg) translateX(0);
+                transform: rotate(1.5deg);
             }
-            .hero-burl-item:nth-child(1):hover {
-                transform: rotate(0deg) translateX(0) translateY(-4px) scale(1.02);
+            /* Disable spread on mobile */
+            .hero-burl-images:hover .hero-burl-item:nth-child(1) {
+                transform: rotate(-2deg);
             }
-            .hero-burl-item:nth-child(2):hover {
-                transform: rotate(0deg) translateX(0) translateY(-4px) scale(1.02);
+            .hero-burl-images:hover .hero-burl-item:nth-child(2) {
+                transform: rotate(1.5deg);
             }
         }
 
@@ -373,11 +374,25 @@
 
         @media (max-width: 768px) {
             .moments-pile {
-                height: 450px;
+                height: auto;
+                min-height: 600px;
             }
             .moment-card {
-                width: 160px;
+                width: 55%;
+                position: relative;
                 padding: 8px 8px 28px 8px;
+                top: auto !important;
+                left: auto !important;
+            }
+            .moments-pile {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+                padding: 2rem 1rem;
+            }
+            .moment-card:hover {
+                transform: rotate(0deg) scale(1.15) !important;
             }
             .moment-caption {
                 font-size: 0.6rem;
