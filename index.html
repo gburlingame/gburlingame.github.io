@@ -37,7 +37,7 @@
             --color-bg: #ffffff;
             --color-text: #111111;
             --color-accent: #1A7A6D; /* Swiss Teal */
-            --color-border: #111111;
+            --color-border: var(--color-accent);
             
             --font-main: 'Outfit', 'Helvetica Neue', Helvetica, Arial, sans-serif;
             
@@ -328,55 +328,60 @@
             color: var(--color-accent);
         }
 
-        /* GALLERY / TIMELINE GRID */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Strict 3 column grid */
-        }
-
-        .gallery-item {
-            border-right: var(--border-width) solid var(--color-border);
-            border-bottom: var(--border-width) solid var(--color-border);
-            display: flex;
-            flex-direction: column;
+        /* MOMENTS PILE */
+        .moments-pile {
             position: relative;
-        }
-        
-        /* Remove border from 3rd item in row to fit container */
-        .gallery-item:nth-child(3n) {
-            border-right: none;
+            height: 550px;
+            overflow: visible;
         }
 
-        .gallery-image-container {
-            aspect-ratio: 4/3;
-            overflow: hidden;
-            background-color: #f0f0f0;
-            border-bottom: var(--border-width) solid var(--color-border);
+        .moment-card {
+            position: absolute;
+            width: 220px;
+            background: #fff;
+            padding: 10px 10px 36px 10px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        box-shadow 0.7s cubic-bezier(0.25, 0.1, 0.25, 1),
+                        z-index 0s;
         }
 
-        .gallery-image-container img {
+        .moment-card:hover {
+            transform: rotate(0deg) scale(2.25) !important;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25), 0 4px 12px rgba(0,0,0,0.12);
+            z-index: 100 !important;
+        }
+
+        .moment-card img {
             width: 100%;
-            height: 100%;
+            aspect-ratio: 4/3;
             object-fit: cover;
+            display: block;
         }
 
-        .gallery-content {
-            padding: 1.5rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .gallery-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .gallery-date {
-            font-size: 0.9rem;
+        .moment-caption {
+            margin-top: 8px;
+            font-family: monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
             color: #666;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        @media (max-width: 768px) {
+            .moments-pile {
+                height: 450px;
+            }
+            .moment-card {
+                width: 160px;
+                padding: 8px 8px 28px 8px;
+            }
+            .moment-caption {
+                font-size: 0.6rem;
+            }
         }
 
         /* FOOTER */
@@ -395,18 +400,6 @@
         }
 
         /* RESPONSIVE */
-        @media (max-width: 1024px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .gallery-item:nth-child(2n) {
-                border-right: none;
-            }
-            .gallery-item:nth-child(3n) {
-                border-right: var(--border-width) solid var(--color-border);
-            }
-        }
-
         @media (max-width: 768px) {
             .definition {
                 grid-template-columns: 1fr;
@@ -414,15 +407,6 @@
             .def-left {
                 border-right: none;
                 border-bottom: var(--border-width) solid var(--color-border);
-            }
-            .hero-burl-images {
-                grid-template-columns: 1fr;
-            }
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-            .gallery-item {
-                border-right: none;
             }
             h1 {
                 font-size: 3.5rem;
@@ -492,7 +476,7 @@
                     <!-- "Burl" is Red, "ingame" is default Black -->
                     <span class="burl-text" style="color: var(--color-accent);">Burl</span>ingame<br>
                     
-                    Family & FRIENDS.
+                    Family & Friends
                 </h1>
                 <div class="family-list" id="family-dock">
                     <a href="https://www.linkedin.com/in/gregburlingame/" target="_blank" rel="noopener noreferrer" class="dock-name">Greg</a>
@@ -533,7 +517,7 @@
         <!-- Added 'alt' class to def-left below -->
         <section class="definition">
             <div class="def-left alt">
-                <h2 style="font-size: 4rem;">The Other<br>Burl.</h2>
+                <h2 style="font-size: 4rem;">The Other<br>Burl</h2>
                 <div style="margin-top: 2rem; font-family: monospace; color: var(--color-text);">LEXINGTON, KY / DISTILLERY DISTRICT</div>
             </div>
             <div class="def-right">
@@ -555,7 +539,7 @@
         <!-- PROJECTS -->
         <section class="definition">
             <div class="def-left">
-                <h2 style="font-size: 4rem;">Projects.</h2>
+                <h2 style="font-size: 4rem;">Projects</h2>
                 <div style="margin-top: 2rem; font-family: monospace; color: rgba(255,255,255,0.8);">APPS BY GREG BURLINGAME</div>
             </div>
             <div class="def-right">
@@ -583,126 +567,57 @@
         </section>
 
         <!-- MOMENTS HEADER -->
-        <div style="padding: 2.5rem 2rem; border-bottom: var(--border-width) solid var(--color-border); display: flex; align-items: baseline; gap: 1.5rem;">
-            <h2 style="font-size: 3.5rem; font-weight: 800; letter-spacing: -0.04em; text-transform: uppercase; line-height: 0.9; color: var(--color-accent);">Moments.</h2>
+        <div style="padding: 2.5rem 2rem; display: flex; align-items: baseline; gap: 1.5rem;">
+            <h2 style="font-size: 3.5rem; font-weight: 800; letter-spacing: -0.04em; text-transform: uppercase; line-height: 0.9; color: var(--color-accent);">Moments</h2>
             <div style="flex: 1; height: 2px; background: var(--color-accent); opacity: 0.3;"></div>
         </div>
 
-        <!-- GALLERY GRID -->
-        <section class="gallery-grid">
-            
-            <!-- Item: GJ 2022 -->
-            <div class="gallery-item">
-                <div class="gallery-image-container">
-                    <img src="gjmay2022.png" alt="GJ 2022" style="object-position: center;">
-                </div>
-                <div class="gallery-content">
-                    <div>
-                        <span class="meta">WINCHESTER COMM MUSIC SCHOOL, WINCHESTER, MA</span>
-                        <h3 class="gallery-title">GJ - Music festival </h3>
-                        <p class="gallery-date">May 2022</p>
-                    </div>
-                </div>
+        <!-- MOMENTS PILE -->
+        <section class="moments-pile" id="moments-pile">
+            <div class="moment-card" style="top: 8%; left: 5%; transform: rotate(-4deg); z-index: 3;">
+                <img src="gjmay2022.png" alt="GJ 2022" class="colorized" style="object-position: center;">
+                <div class="moment-caption">GJ — Music Festival<br>Winchester, MA — May 2022</div>
             </div>
-
-            <!-- Item: Kelly 2024 -->
-            <div class="gallery-item">
-                <div class="gallery-image-container">
-                    <img src="kellyjuly2024.png" alt="Kelly 2024" style="object-position: top;">
-                </div>
-                <div class="gallery-content">
-                    <div>
-                        <span class="meta">BOAT HOUSE RESTAURANT, TIVERTON, RI</span>
-                        <h3 class="gallery-title">Kelly - 25th anniversary</h3>
-                        <p class="gallery-date">July 2024</p>
-                    </div>
-                </div>
+            <div class="moment-card" style="top: 15%; left: 22%; transform: rotate(3deg); z-index: 5;">
+                <img src="kellyjuly2024.png" alt="Kelly 2024" class="colorized" style="object-position: top;">
+                <div class="moment-caption">Kelly — 25th Anniversary<br>Tiverton, RI — July 2024</div>
             </div>
-
-            <!-- Item: Greg 2025 -->
-            <div class="gallery-item">
-                <div class="gallery-image-container">
-                    <img src="gregmay2025.png" alt="Greg 2025" style="object-position: top;">
-                </div>
-                <div class="gallery-content">
-                    <div>
-                        <span class="meta">BOOMERS PIZZA, WORCESTER, MA</span>
-                        <h3 class="gallery-title">Greg - Love that Mexican Fiesta Pizza!</h3>
-                        <p class="gallery-date">May 2025</p>
-                    </div>
-                </div>
+            <div class="moment-card" style="top: 5%; left: 42%; transform: rotate(-2deg); z-index: 4;">
+                <img src="gregmay2025.png" alt="Greg 2025" class="colorized" style="object-position: top;">
+                <div class="moment-caption">Greg — Mexican Fiesta Pizza!<br>Worcester, MA — May 2025</div>
             </div>
-
-            <!-- Item: Ethan 2025 -->
-            <div class="gallery-item">
-                <div class="gallery-image-container">
-                    <img src="ethanaugust2025.png" alt="Ethan 2025" style="object-position: top;">
-                </div>
-                <div class="gallery-content">
-                    <div>
-                        <span class="meta">UMASS AMHERST, AMHERST, MA</span>
-                        <h3 class="gallery-title">Ethan - moving in Senior year </h3>
-                        <p class="gallery-date">August 2025</p>
-                    </div>
-                </div>
+            <div class="moment-card" style="top: 12%; left: 60%; transform: rotate(5deg); z-index: 2;">
+                <img src="ethanaugust2025.png" alt="Ethan 2025" class="colorized" style="object-position: top;">
+                <div class="moment-caption">Ethan — Moving In, Senior Year<br>Amherst, MA — August 2025</div>
             </div>
-
-            <!-- Item: Papa Jim -->
-            <div class="gallery-item">
-                <div class="gallery-image-container">
-                    <img src="papajim80.png" alt="Papa Jim 80th">
-                </div>
-                <div class="gallery-content">
-                    <div>
-                        <span class="meta">WOBURN, MA</span>
-                        <h3 class="gallery-title">Papa Jim's 80th Birthday</h3>
-                        <p class="gallery-date">August 2025</p>
-                    </div>
-                </div>
+            <div class="moment-card" style="top: 45%; left: 10%; transform: rotate(2deg); z-index: 6;">
+                <img src="papajim80.png" alt="Papa Jim 80th" class="colorized">
+                <div class="moment-caption">Papa Jim's 80th Birthday<br>Woburn, MA — August 2025</div>
             </div>
-
-            <!-- Item: Easter 2025 -->
-            <div class="gallery-item">
-                <div class="gallery-image-container">
-                    <img src="easter2025.png" alt="Easter 2025">
-                </div>
-                <div class="gallery-content">
-                    <div>
-                        <span class="meta">DOVER, NH</span>
-                        <h3 class="gallery-title">Easter Celebration</h3>
-                        <p class="gallery-date">April 2025</p>
-                    </div>
-                </div>
+            <div class="moment-card" style="top: 50%; left: 32%; transform: rotate(-5deg); z-index: 7;">
+                <img src="easter2025.png" alt="Easter 2025" class="colorized">
+                <div class="moment-caption">Easter Celebration<br>Dover, NH — April 2025</div>
             </div>
-
-            <!-- Item: Easter 2024 -->
-            <div class="gallery-item">
-                <div class="gallery-image-container">
-                    <img src="easter2024.png" alt="Easter 2024">
-                </div>
-                <div class="gallery-content">
-                    <div>
-                        <span class="meta">DOVER, NH</span>
-                        <h3 class="gallery-title">Easter Celebration</h3>
-                        <p class="gallery-date">March 2024</p>
-                    </div>
-                </div>
+            <div class="moment-card" style="top: 42%; left: 52%; transform: rotate(3.5deg); z-index: 8;">
+                <img src="easter2024.png" alt="Easter 2024" class="colorized">
+                <div class="moment-caption">Easter Celebration<br>Dover, NH — March 2024</div>
             </div>
-
-            <!-- Item: Easter 2023 -->
-            <div class="gallery-item">
-                <div class="gallery-image-container">
-                    <img src="easter2023.png" alt="Easter 2023">
-                </div>
-                <div class="gallery-content">
-                    <div>
-                        <span class="meta">DOVER, NH</span>
-                        <h3 class="gallery-title">Easter Celebration</h3>
-                        <p class="gallery-date">April 2023</p>
-                    </div>
-                </div>
+            <div class="moment-card" style="top: 48%; left: 72%; transform: rotate(-3deg); z-index: 1;">
+                <img src="easter2023.png" alt="Easter 2023" class="colorized">
+                <div class="moment-caption">Easter Celebration<br>Dover, NH — April 2023</div>
             </div>
-
+            <div class="moment-card" style="top: 28%; left: 75%; transform: rotate(4deg); z-index: 9;">
+                <img src="gregjune2025.jpg" alt="Greg at Ogawa Coffee" class="colorized" style="object-position: right bottom;">
+                <div class="moment-caption">Greg — Ogawa Coffee<br>Boston, MA — June 2025</div>
+            </div>
+            <div class="moment-card" style="top: 35%; left: 18%; transform: rotate(-2.5deg); z-index: 10;">
+                <img src="kellyapril2026.jpg" alt="Kelly at Notch Brewing" class="colorized">
+                <div class="moment-caption">Kelly — Notch Brewing<br>Salem, MA — April 2026</div>
+            </div>
+            <div class="moment-card" style="top: 20%; left: 48%; transform: rotate(3.5deg); z-index: 11;">
+                <img src="gjapril2026.jpg" alt="GJ at Mystic Station" class="colorized">
+                <div class="moment-caption">GJ — Mystic Station<br>Malden, MA — April 2026</div>
+            </div>
         </section>
 
         <!-- FOOTER -->
