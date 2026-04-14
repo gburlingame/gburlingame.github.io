@@ -192,7 +192,7 @@
             background: #fff;
             padding: 12px 12px 40px 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08);
-            transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.4s ease;
+            transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.7s ease;
             cursor: default;
         }
 
@@ -209,13 +209,20 @@
         .hero-burl-item:nth-child(1):hover {
             transform: rotate(0deg) translateX(-30%) translateY(-8px) scale(1.03);
             box-shadow: 0 12px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.1);
-            z-index: 3;
         }
 
         .hero-burl-item:nth-child(2):hover {
             transform: rotate(0deg) translateX(30%) translateY(-8px) scale(1.03);
             box-shadow: 0 12px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.1);
-            z-index: 3;
+        }
+
+        /* Spread apart on hover over the container */
+        .hero-burl-images:hover .hero-burl-item:nth-child(1) {
+            transform: rotate(-1deg) translateX(-58%);
+        }
+
+        .hero-burl-images:hover .hero-burl-item:nth-child(2) {
+            transform: rotate(1deg) translateX(58%);
         }
 
         .hero-burl-image {
