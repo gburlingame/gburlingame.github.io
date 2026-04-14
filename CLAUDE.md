@@ -24,7 +24,7 @@ CSS variables defined in `:root` of `index.html`:
 - `--color-accent: #1A7A6D` (Swiss Teal)
 - `--color-text: #111111`
 - `--color-bg: #ffffff`
-- `--font-main: 'Inter'`
+- `--font-main: 'Outfit'`
 
 Key visual features:
 - Images display grayscale by default, colorize on hover (use `class="colorized"` to override)
