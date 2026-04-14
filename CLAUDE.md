@@ -21,7 +21,7 @@ This is a static GitHub Pages site for the Burlingame family, hosted at **www.th
 ## Design System
 
 CSS variables defined in `:root` of `index.html`:
-- `--color-accent: #FF0000` (Swiss Red)
+- `--color-accent: #1A7A6D` (Swiss Teal)
 - `--color-text: #111111`
 - `--color-bg: #ffffff`
 - `--font-main: 'Inter'`
