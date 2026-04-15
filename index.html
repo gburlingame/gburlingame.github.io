@@ -161,7 +161,7 @@
             text-decoration: none;
             color: inherit;
             display: inline-block;
-            transform-origin: bottom center;
+            transform-origin: center center;
         }
 
         .dock-name:hover {
@@ -675,7 +675,15 @@
             var dockAll = dock.querySelectorAll('.dock-name, .dock-sep');
             var targetScales = new Array(dockAll.length).fill(1);
             var currentScales = new Array(dockAll.length).fill(1);
+            var targetOffsets = new Array(dockAll.length).fill(0);
+            var currentOffsets = new Array(dockAll.length).fill(0);
+            var originalWidths = [];
             var animating = false;
+
+            // Capture original widths before any transforms
+            dockAll.forEach(function(item) {
+                originalWidths.push(item.getBoundingClientRect().width);
+            });
 
             function lerp(a, b, t) { return a + (b - a) * t; }
 
@@ -683,8 +691,10 @@
                 var stillMoving = false;
                 dockAll.forEach(function(item, i) {
                     currentScales[i] = lerp(currentScales[i], targetScales[i], 0.15);
+                    currentOffsets[i] = lerp(currentOffsets[i], targetOffsets[i], 0.15);
                     if (Math.abs(currentScales[i] - targetScales[i]) > 0.001) stillMoving = true;
-                    item.style.transform = 'scale(' + currentScales[i] + ')';
+                    if (Math.abs(currentOffsets[i] - targetOffsets[i]) > 0.1) stillMoving = true;
+                    item.style.transform = 'translateX(' + currentOffsets[i] + 'px) scale(' + currentScales[i] + ')';
                 });
                 if (stillMoving) {
                     requestAnimationFrame(animate);
@@ -705,11 +715,27 @@
                     var factor = Math.max(0, 1 - dist / 150);
                     targetScales[i] = 1 + 0.35 * factor;
                 });
+
+                // Spread elements apart to prevent overlap
+                var totalExtra = 0;
+                for (var i = 0; i < dockAll.length; i++) {
+                    totalExtra += (targetScales[i] - 1) * originalWidths[i];
+                }
+                var cumExtra = 0;
+                for (var i = 0; i < dockAll.length; i++) {
+                    var myExtra = (targetScales[i] - 1) * originalWidths[i];
+                    targetOffsets[i] = cumExtra + myExtra / 2 - totalExtra / 2;
+                    cumExtra += myExtra;
+                }
+
                 startAnim();
             });
 
             dock.addEventListener('mouseleave', function() {
-                for (var i = 0; i < targetScales.length; i++) targetScales[i] = 1;
+                for (var i = 0; i < targetScales.length; i++) {
+                    targetScales[i] = 1;
+                    targetOffsets[i] = 0;
+                }
                 startAnim();
             });
 
