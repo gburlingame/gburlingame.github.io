@@ -361,6 +361,14 @@
             display: block;
         }
 
+        .moment-card video {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: contain;
+            background: #000;
+            display: block;
+        }
+
         .moment-caption {
             margin-top: 8px;
             font-family: monospace;
@@ -633,6 +641,10 @@
                 <img src="gjapril2026.jpg" alt="GJ at Mystic Station" class="colorized">
                 <div class="moment-caption">GJ — Mystic Station<br>Malden, MA — April 2026</div>
             </div>
+            <div class="moment-card" style="top: 6%; left: 67%; transform: rotate(5deg); z-index: 12;">
+                <video src="ethanmay2026.mp4" poster="ethanmay2026.jpg" autoplay muted loop playsinline preload="metadata"></video>
+                <div class="moment-caption">Ethan — Isenberg Commencement<br>Amherst, MA — May 2026</div>
+            </div>
         </section>
 
         <!-- FOOTER -->
@@ -669,6 +681,13 @@
                 });
             }, { threshold: 0.3 });
             images.forEach(function(img) { observer.observe(img); });
+
+            // Unmute moment-card videos on hover, mute on leave
+            document.querySelectorAll('.moment-card video').forEach(function(v) {
+                var card = v.closest('.moment-card');
+                card.addEventListener('mouseenter', function() { v.muted = false; });
+                card.addEventListener('mouseleave', function() { v.muted = true; });
+            });
 
             // Dock magnification effect
             var dock = document.getElementById('family-dock');
